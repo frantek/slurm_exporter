@@ -42,8 +42,9 @@ RUN env
 RUN make build
 RUN ldd /app/bin/slurm_exporter || echo "Static binary or ldd not found"
 
-# Final stage
-FROM image-registry.openshift-image-registry.svc:5000/openshift/ubi9-micro:latest
+# Final stage: Use the public Red Hat UBI Micro image
+# Alternatively, use 'alpine:latest' or 'scratch' for an even smaller image
+FROM registry.access.redhat.com/ubi9/ubi-micro:latest
 
 # Set up environment variables
 ENV SLURM_EXPORTER_PORT=8080
