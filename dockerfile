@@ -2,7 +2,7 @@
 FROM golang:1.25-alpine AS builder
 
 # Install make and build tools (Alpine uses apk)
-RUN apk add --no-cache make gcc musl-dev
+RUN apk add --no-cache make gcc musl-dev bash
 
 # Minimal Slurm configuration to allow `sinfo` to run
 RUN mkdir -p /etc/slurm-llnl && \
@@ -35,7 +35,7 @@ COPY . .
 RUN env
 
 # Build the application binary using the Makefile
-RUN make build
+RUN make build SHELL=/bin/bash
 RUN ldd /app/bin/slurm_exporter || echo "Static binary or ldd not found"
 
 # Final stage: Use the public Red Hat UBI Micro image
