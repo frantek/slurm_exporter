@@ -1,12 +1,8 @@
-# Build stage: Use a public Golang image
-FROM golang:1.21-bullseye AS builder
+# Build stage: Use Golang 1.25 Alpine for a fast, modern build environment
+FROM golang:1.25-alpine AS builder
 
-USER root
-
-# Install make and build essentials (standard in bullseye, but good to be explicit)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    make \
-    && rm -rf /var/lib/apt/lists/*
+# Install make and build tools (Alpine uses apk)
+RUN apk add --no-cache make gcc musl-dev
 
 # Minimal Slurm configuration to allow `sinfo` to run
 RUN mkdir -p /etc/slurm-llnl && \
