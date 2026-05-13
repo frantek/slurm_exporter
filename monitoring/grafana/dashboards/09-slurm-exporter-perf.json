@@ -1,4 +1,53 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "row",
+      "name": "Row",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": []
   },
@@ -7,6 +56,20 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "slurm"
+      ],
+      "targetBlank": false,
+      "title": "Slurm Dashboards",
+      "tooltip": "Switch to another Slurm dashboard",
+      "type": "dashboards",
+      "url": ""
+    },
     {
       "title": "slurm_exporter on GitHub",
       "url": "https://github.com/SckyzO/slurm_exporter",
@@ -450,7 +513,7 @@
       "type": "bargauge",
       "id": 11,
       "title": "Call Count per Command (last 5 min)",
-      "description": "Number of Slurm CLI executions per command. sinfo should be ~1/scrape after Axe 2 optimisation.",
+      "description": "Number of Slurm CLI executions per command. `sinfo` should be ~1 per scrape thanks to caching.",
       "gridPos": {
         "h": 8,
         "w": 12,

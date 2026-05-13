@@ -1,4 +1,53 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "row",
+      "name": "Row",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": []
   },
@@ -7,6 +56,20 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "slurm"
+      ],
+      "targetBlank": false,
+      "title": "Slurm Dashboards",
+      "tooltip": "Switch to another Slurm dashboard",
+      "type": "dashboards",
+      "url": ""
+    },
     {
       "title": "slurm_exporter on GitHub",
       "url": "https://github.com/SckyzO/slurm_exporter",
@@ -699,7 +762,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"down.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"down.*\"})) or vector(0)",
           "legendFormat": "",
           "refId": "A"
         }
@@ -761,7 +824,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"drain.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"drain.*\"})) or vector(0)",
           "legendFormat": "",
           "refId": "A"
         }
@@ -1674,7 +1737,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"alloc.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"alloc.*\"})) or vector(0)",
           "legendFormat": "Alloc",
           "refId": "A"
         }
@@ -1732,7 +1795,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"idle.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"idle.*\"})) or vector(0)",
           "legendFormat": "Idle",
           "refId": "A"
         }
@@ -1790,7 +1853,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"mix.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"mix.*\"})) or vector(0)",
           "legendFormat": "Mix",
           "refId": "A"
         }
@@ -1836,6 +1899,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -1848,7 +1915,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"down.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"down.*\"})) or vector(0)",
           "legendFormat": "Down",
           "refId": "A"
         }
@@ -1894,6 +1961,14 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
               }
             ]
           }
@@ -1906,7 +1981,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"drain.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"drain.*\"})) or vector(0)",
           "legendFormat": "Drain",
           "refId": "A"
         }
@@ -1964,7 +2039,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"maint.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"maint.*\"})) or vector(0)",
           "legendFormat": "Maint",
           "refId": "A"
         }
@@ -2022,7 +2097,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"comp.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"comp.*\"})) or vector(0)",
           "legendFormat": "Comp",
           "refId": "A"
         }
@@ -2080,7 +2155,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"err.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"err.*\"})) or vector(0)",
           "legendFormat": "Err",
           "refId": "A"
         }
@@ -2138,7 +2213,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"fail.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"fail.*\"})) or vector(0)",
           "legendFormat": "Fail",
           "refId": "A"
         }
@@ -2196,7 +2271,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"inval.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"inval.*\"})) or vector(0)",
           "legendFormat": "Inval",
           "refId": "A"
         }
@@ -2254,7 +2329,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"plan.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"plan.*\"})) or vector(0)",
           "legendFormat": "Planned",
           "refId": "A"
         }
@@ -2312,7 +2387,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"resv.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"resv.*\"})) or vector(0)",
           "legendFormat": "Resv",
           "refId": "A"
         }
@@ -2369,7 +2444,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"alloc.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"alloc.*\"})) or vector(0)",
           "legendFormat": "Alloc",
           "refId": "A"
         },
@@ -2378,7 +2453,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"idle.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"idle.*\"})) or vector(0)",
           "legendFormat": "Idle",
           "refId": "B"
         },
@@ -2387,7 +2462,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"mix.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"mix.*\"})) or vector(0)",
           "legendFormat": "Mix",
           "refId": "C"
         },
@@ -2396,7 +2471,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"down.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"down.*\"})) or vector(0)",
           "legendFormat": "Down",
           "refId": "D"
         },
@@ -2405,7 +2480,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"drain.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"drain.*\"})) or vector(0)",
           "legendFormat": "Drain",
           "refId": "E"
         },
@@ -2414,7 +2489,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"maint.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"maint.*\"})) or vector(0)",
           "legendFormat": "Maint",
           "refId": "F"
         },
@@ -2423,7 +2498,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"resv.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"resv.*\"})) or vector(0)",
           "legendFormat": "Resv",
           "refId": "G"
         },
@@ -2432,7 +2507,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(count by(node)(slurm_node_status{status=~\"comp.*\"}))",
+          "expr": "count(count by(node)(slurm_node_status{status=~\"comp.*\"})) or vector(0)",
           "legendFormat": "Comp",
           "refId": "H"
         }
@@ -2963,6 +3038,14 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
               }
             ]
           }
@@ -3079,6 +3162,14 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
               }
             ]
           }
@@ -3253,6 +3344,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
               }
             ]
           }
@@ -4472,7 +4567,7 @@
       "type": "timeseries",
       "id": 111,
       "title": "slurm_user_fairshare — FairShare factor per user",
-      "description": "Requires --collector.fairshare.user-metrics=true (default).",
+      "description": "FairShare factor per user (0=lowest priority, 1=highest). Emitted by default; toggle with `--collector.fairshare.user-metrics`.",
       "gridPos": {
         "h": 6,
         "w": 12,
@@ -5245,6 +5340,14 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 200
               }
             ]
           }
